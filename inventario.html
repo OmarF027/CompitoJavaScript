@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Magazzino</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <header>
+        <h1>Magazzino</h1>
+        <section id="statistiche">
+            <div>Articoli totali: <span id="articoliTot">0</span></div>
+            <div>Articoli in esaurimento / esauriti: <span id="articoliUscita">0</span></div>
+        </section>
+    </header>
+    <main>
+        <form id="inserisciArticoloForm">
+            <h2>Aggiungi Articolo</h2>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+            <label for="categoria">Categoria:</label>
+            <input type="text" id="categoria" required>
+            <label for="fornitore">Fornitore:</label>
+            <input type="text" id="fornitore" required>
+            <label for="prezzo">Prezzo:</label>
+            <input type="number" id="prezzo" step="0.01" required>
+            <label for="quantita">Quantità:</label>
+            <input type="number" id="quantita" required>
+            <label for="sogliaMinima">Soglia Minima:</label>
+            <input type="number" id="sogliaMinima" required>
+            <label for="dataArrivo">Data Arrivo:</label>
+            <input type="date" id="dataArrivo" required>
+            <button type="submit">Aggiungi</button>
+            <button type="reset">Annulla</button>
+        </form>
+
+        <section id="controlli">
+            <label for="cercaNome">Cerca per nome:</label>
+            <input type="text" id="cercaNome">
+            <label for="cercaCategoria">Cerca per categoria:</label>
+            <input type="text" id="cercaCategoria">
+            <label for="cercaFornitore">Filtra per Fornitore:</label>
+            <input type="text" id="cercaFornitore">
+
+            <label for="filtroScorte">Stato scorte:</label>
+            <select id="filtroScorte">
+                <option value="tutti">Tutti</option>
+                <option value="basse">Scorte basse</option>
+                <option value="esauriti">Esauriti</option>
+            </select>
+            <button id="resettaFiltri">Resetta Filtri</button>
+        </section>
+        
+        <table id="articoliTabella">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Fornitore</th>
+                    <th>Prezzo</th>
+                    <th>Quantità</th>
+                    <th>Soglia Minima</th>
+                    <th>Data Arrivo</th>
+                </tr>
+            </thead>
+            <tbody id="listaArticoli">
+                
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2025 Magazzino</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
