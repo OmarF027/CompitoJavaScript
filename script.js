@@ -72,6 +72,15 @@ document.addEventListener("DOMContentLoaded", function () {
             quantita: 7,
             sogliaMinima: 2,
             dataArrivo: "2025-04-28"
+        },
+        {
+            nome: "Patatine Cheetos",
+            categoria: "Alimentari",
+            fornitore: "Cheetos",
+            prezzo: 4.99,
+            quantita: 50,
+            sogliaMinima: 5,
+            dataArrivo: "2025-06-09"
         }
     ];
 
@@ -125,9 +134,62 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     tr.appendChild(td);
                 });
+
+                // Aggiungi i pulsanti per carico/scarico e eliminare
+                let tdAzione = document.createElement("td");
+                let btnCarico = document.createElement("button");
+                btnCarico.innerText = "Carica";
+                btnCarico.onclick = () => aggiornaQuantita(idx, "carico");
+
+                let btnScarico = document.createElement("button");
+                btnScarico.innerText = "Scarica";
+                btnScarico.onclick = () => aggiornaQuantita(idx, "scarico");
+
+                let btnElimina = document.createElement("button");
+                btnElimina.innerText = "Elimina";
+                btnElimina.onclick = () => eliminaProdotto(idx);
+
+                tdAzione.appendChild(btnCarico);
+                tdAzione.appendChild(btnScarico);
+                tdAzione.appendChild(btnElimina);
+                tr.appendChild(tdAzione);
+
                 tbody.appendChild(tr);
             }
         });
+    }
+
+    // Funzione per caricare/scaricare la merce
+    function aggiornaQuantita(idArticolo, tipo) {
+        let articolo = articoli[idArticolo];
+        let quantita = parseInt(prompt("Inserisci la quantità da " + (tipo === "carico" ? "caricare" : "scaricare") + ":"));
+
+        if (isNaN(quantita) || quantita <= 0) {
+            alert("Quantità non valida!");
+            return;
+        }
+
+        if (tipo === "carico") {
+            articolo.quantita += quantita;
+        } else if (tipo === "scarico") {
+            if (articolo.quantita - quantita < 0) {
+                alert("Non puoi scaricare più della quantità disponibile!");
+                return;
+            }
+            articolo.quantita -= quantita;
+        }
+
+        aggiornaStatistiche();
+        disegnaTabella();
+    }
+
+    // Funzione per eliminare un prodotto
+    function eliminaProdotto(idArticolo) {
+        if (confirm("Sei sicuro di voler eliminare questo prodotto?")) {
+            articoli.splice(idArticolo, 1);
+            aggiornaStatistiche();
+            disegnaTabella();
+        }
     }
 
     // Gestione inserimento nuovo articolo
